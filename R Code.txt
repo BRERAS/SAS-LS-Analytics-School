@@ -1,0 +1,26 @@
+# Python or R code based on the Language property.
+#
+# Note that a few lines of Python or R code are added before your code; for example:
+# Python:
+#  dm_class_input = ["class_var_1", "class_var_2"]
+#  dm_interval_input = ["numeric_var_1", "numeric_var_2"]
+# R:
+#  dm_class_input <- c("class_var_1", "class_var_2")
+#  dm_interval_input <- c("numeric_var_1", "numeric_var_2")
+#
+# For Python, use the Node Configuration section of the Project Settings to prepend
+# any configuration code, which is executed before the above code. During execution,
+# this code is automatically prepended to every node that runs Python code.
+#
+# After running the node, the Python or R code window in the node results displays
+# the actual code that was executed. START ENTERING YOUR CODE ON THE NEXT LINE.
+
+dm_model <- glm(dm_model_formula,
+                data=dm_traindf, family=binomial(link="logit"))
+
+summary(dm_model)                
+
+pred <- plogis(predict(dm_model, dm_inputdf))
+dm_scoreddf <- data.frame(pred)
+colnames(dm_scoreddf) <- c("P_OUTCOME1")
+dm_scoreddf$P_OUTCOME0 <- 1 - dm_scoreddf$P_OUTCOME1

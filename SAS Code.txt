@@ -1,0 +1,7 @@
+/* SAS code */
+data &dm_output_data;
+    set &dm_data;
+    if BloodPressure ne 0 and pregnancies<=10;
+run;    
+
+%dmcas_register(dataset = &dm_output_data, type = cas);
